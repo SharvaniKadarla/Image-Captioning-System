@@ -1,0 +1,5 @@
+The files required for the Image Captioning System are:
+Images Folder
+Captions.txt // For each image, there are 5 captions.
+
+In the code, we'll add a line that creates the working directory folder, and the code lines will save automatically based on the requirements.
