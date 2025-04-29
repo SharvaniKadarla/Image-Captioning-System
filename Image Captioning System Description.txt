@@ -1,0 +1,47 @@
+Image Captioning System using a Convolutional Neural Network (CNN) and Recurrent Neural Network (RNN).
+
+🔹 Goal
+To generate natural language descriptions (captions) for images using deep learning.
+
+🔹 1. Feature Extraction from Images
+> Model Used: Pre-trained VGG16 (a CNN).
+> What it does:
+i. Loads each image.
+ii. Resizes it to (224×224).
+iii. Extracts a 4096-dimensional feature vector (second-to-last VGG16 layer).
+iv. Saves these features using pickle.
+
+🔹 2. Text (Captions) Preprocessing
+> Loads a file mapping image filenames to multiple captions.
+> Cleans captions: removes special characters, digits, and short words; adds startseq and endseq tags.
+> Tokenizes captions into sequences using Tokenizer.
+> Calculates vocab_size and max_length of captions.
+
+🔹 3. Data Preparation
+> Splits data into train (90%) and test (10%).
+> Implements a data generator that:
+i. Takes image features and corresponding partial caption sequences.
+ii. Prepares input-output pairs for training the model.
+
+🔹 4. Model Architecture
+> Encoder (CNN features): 4096-dim input → Dropout → Dense(256).
+> Decoder (RNN part): Token sequences → Embedding → Dropout → LSTM(256).
+> Combined using add() and passed through Dense layers to predict the next word.
+> Compiled with categorical crossentropy and Adam optimizer.
+
+🔹 5. Training
+> Trained for 20 epochs using the data generator with a batch size of 32.
+> Saves the trained model.
+
+🔹 6. Inference (Caption Generation)
+> Starts with "startseq", predicts the next word until "endseq" or max_length is reached.
+> Converts predicted token indices back to words.
+
+🔹 7. Evaluation
+> Evaluates on test images using BLEU scores (common in machine translation).
+> Compares generated captions with actual ones.
+
+🔹 8. Caption Visualization
+> Displays selected images.
+> Prints actual captions and the predicted caption.
+> Visualizes the image using matplotlib.
